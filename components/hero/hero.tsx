@@ -17,12 +17,12 @@ function Hero() {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10 max-w-6xl">
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
-          <div className="flex max-w-2xl flex-1 flex-col items-start gap-6 lg:gap-8">
+          <div className="flex max-w-4xl flex-1 flex-col items-start gap-6 lg:gap-8">
             <div className="flex flex-col items-start gap-6">
               {/* Badge */}
               <div className="flex items-center justify-start text-sm font-medium w-fit gap-1 text-white bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-                <span>🔨</span>
-                Professional Installation
+                <span>🏠</span>
+                Complete Flooring Solutions
               </div>
 
               {/* Main heading */}
@@ -30,18 +30,15 @@ function Hero() {
                 id="hero-heading"
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
               >
-                Expert Ceramic Tile
+                Expert Flooring
                 <span className="block text-muted-foreground">
-                  Installation Services
+                  Installation & Remodeling
                 </span>
               </h1>
 
               {/* Description */}
-              <p className="text-base text-white/90 lg:text-lg max-w-xl leading-relaxed">
-                Professional ceramic tile installation for kitchens, bathrooms,
-                and living spaces. Expert craftsmanship, competitive pricing,
-                and guaranteed quality workmanship that transforms your space
-                with precision and care.
+              <p className="text-base text-white/90 lg:text-lg max-w-2xl leading-relaxed">
+                Professional flooring installation and remodeling services including ceramic tiles, porcelain tiles, natural stone, and laminate flooring. Expert craftsmanship, competitive pricing, and guaranteed quality workmanship that transforms your home with precision and care.
               </p>
             </div>
 
