@@ -8,10 +8,10 @@ function Footer() {
   
   const navigationLinks = [
     { href: "/", label: "Home" },
-    { href: "#services", label: "Services" },
-    { href: "#gallery", label: "Gallery" },
-    ...(isFaqEnabled ? [{ href: "#faqs", label: "FAQs" }] : []),
-    { href: "#free-estimate", label: "Get a free estimate" },
+    { href: "/#services", label: "Services" },
+    { href: "/#gallery", label: "Gallery" },
+    ...(isFaqEnabled ? [{ href: "/#faqs", label: "FAQs" }] : []),
+    { href: "/#free-estimate", label: "Get a free estimate" },
   ];
 
   const socialLinks = [

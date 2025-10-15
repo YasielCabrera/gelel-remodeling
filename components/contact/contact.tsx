@@ -42,11 +42,17 @@ const contactFormSchema = z.object({
   zipCode: z
     .string()
     .min(1, "Zip code is required")
-    .regex(/^\d{5}(-\d{4})?$/, "Please enter a valid US zip code (e.g., 12345 or 12345-6789)"),
+    .regex(
+      /^\d{5}(-\d{4})?$/,
+      "Please enter a valid US zip code (e.g., 12345 or 12345-6789)"
+    ),
   projectDescription: z
     .string()
     .min(1, "Project description is required")
-    .min(20, "Please provide a more detailed description (at least 20 characters)")
+    .min(
+      20,
+      "Please provide a more detailed description (at least 20 characters)"
+    )
     .max(1000, "Description must be less than 1000 characters"),
 });
 
@@ -84,18 +90,28 @@ function Contact() {
 
   if (isSubmitted) {
     return (
-      <section id="free-estimate" className="scroll-mt-0 md:scroll-mt-14 py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <div className="mb-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
@@ -103,11 +119,12 @@ function Contact() {
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary/50 mx-auto rounded-full mb-8"></div>
             </div>
-            
+
             <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl">
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 We've received your request for a free estimate. Our team will
-                contact you within 24 hours to discuss your ceramic tile project.
+                contact you within 24 hours to discuss your ceramic tile
+                project.
               </p>
               <Button
                 onClick={() => setIsSubmitted(false)}
@@ -124,19 +141,32 @@ function Contact() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
+    <section
+      id="free-estimate"
+      className="py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden scroll-mt-0 md:scroll-mt-14 "
+    >
       {/* Decorative background elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="absolute top-20 right-20 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 left-20 w-32 h-32 bg-secondary/5 rounded-full blur-2xl"></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/3 rounded-full blur-3xl"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
-            <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <svg
+              className="w-8 h-8 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
             </svg>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
@@ -158,17 +188,22 @@ function Contact() {
                 {/* Personal Information Section */}
                 <div className="space-y-6">
                   <div className="text-center lg:text-left mb-8">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Personal Information</h3>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      Personal Information
+                    </h3>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-primary/50 to-transparent mx-auto lg:mx-0 rounded-full"></div>
                   </div>
-                  
+
                   <div className="space-y-6">
                     <Controller
                       name="name"
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel htmlFor="name" className="text-sm font-medium text-foreground/90">
+                          <FieldLabel
+                            htmlFor="name"
+                            className="text-sm font-medium text-foreground/90"
+                          >
                             Full Name *
                           </FieldLabel>
                           <FieldContent>
@@ -177,7 +212,11 @@ function Contact() {
                               id="name"
                               type="text"
                               placeholder="Enter your full name"
-                              className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                              className={`transition-all duration-200 ${
+                                fieldState.invalid
+                                  ? "border-destructive ring-2 ring-destructive/20"
+                                  : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                              }`}
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -192,7 +231,10 @@ function Contact() {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel htmlFor="email" className="text-sm font-medium text-foreground/90">
+                          <FieldLabel
+                            htmlFor="email"
+                            className="text-sm font-medium text-foreground/90"
+                          >
                             Email Address *
                           </FieldLabel>
                           <FieldContent>
@@ -201,7 +243,11 @@ function Contact() {
                               id="email"
                               type="email"
                               placeholder="Enter your email address"
-                              className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                              className={`transition-all duration-200 ${
+                                fieldState.invalid
+                                  ? "border-destructive ring-2 ring-destructive/20"
+                                  : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                              }`}
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -216,7 +262,10 @@ function Contact() {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel htmlFor="phone" className="text-sm font-medium text-foreground/90">
+                          <FieldLabel
+                            htmlFor="phone"
+                            className="text-sm font-medium text-foreground/90"
+                          >
                             Phone Number *
                           </FieldLabel>
                           <FieldContent>
@@ -225,7 +274,11 @@ function Contact() {
                               id="phone"
                               type="tel"
                               placeholder="Enter your phone number"
-                              className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                              className={`transition-all duration-200 ${
+                                fieldState.invalid
+                                  ? "border-destructive ring-2 ring-destructive/20"
+                                  : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                              }`}
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -240,17 +293,22 @@ function Contact() {
                 {/* Address Information Section */}
                 <div className="space-y-6">
                   <div className="text-center lg:text-left mb-8">
-                    <h3 className="text-xl font-semibold text-foreground mb-2">Project Location</h3>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      Project Location
+                    </h3>
                     <div className="w-16 h-0.5 bg-gradient-to-r from-primary/50 to-transparent mx-auto lg:mx-0 rounded-full"></div>
                   </div>
-                  
+
                   <div className="space-y-6">
                     <Controller
                       name="address"
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel htmlFor="address" className="text-sm font-medium text-foreground/90">
+                          <FieldLabel
+                            htmlFor="address"
+                            className="text-sm font-medium text-foreground/90"
+                          >
                             Address *
                           </FieldLabel>
                           <FieldContent>
@@ -259,7 +317,11 @@ function Contact() {
                               id="address"
                               type="text"
                               placeholder="Street address"
-                              className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                              className={`transition-all duration-200 ${
+                                fieldState.invalid
+                                  ? "border-destructive ring-2 ring-destructive/20"
+                                  : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                              }`}
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -274,7 +336,10 @@ function Contact() {
                       control={form.control}
                       render={({ field, fieldState }) => (
                         <Field data-invalid={fieldState.invalid}>
-                          <FieldLabel htmlFor="address2" className="text-sm font-medium text-foreground/90">
+                          <FieldLabel
+                            htmlFor="address2"
+                            className="text-sm font-medium text-foreground/90"
+                          >
                             Address 2
                           </FieldLabel>
                           <FieldContent>
@@ -283,7 +348,11 @@ function Contact() {
                               id="address2"
                               type="text"
                               placeholder="Apartment, suite, unit, etc. (optional)"
-                              className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                              className={`transition-all duration-200 ${
+                                fieldState.invalid
+                                  ? "border-destructive ring-2 ring-destructive/20"
+                                  : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                              }`}
                             />
                             {fieldState.invalid && (
                               <FieldError errors={[fieldState.error]} />
@@ -299,7 +368,10 @@ function Contact() {
                         control={form.control}
                         render={({ field, fieldState }) => (
                           <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="city" className="text-sm font-medium text-foreground/90">
+                            <FieldLabel
+                              htmlFor="city"
+                              className="text-sm font-medium text-foreground/90"
+                            >
                               City *
                             </FieldLabel>
                             <FieldContent>
@@ -308,7 +380,11 @@ function Contact() {
                                 id="city"
                                 type="text"
                                 placeholder="City"
-                                className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                                className={`transition-all duration-200 ${
+                                  fieldState.invalid
+                                    ? "border-destructive ring-2 ring-destructive/20"
+                                    : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                                }`}
                               />
                               {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />
@@ -323,7 +399,10 @@ function Contact() {
                         control={form.control}
                         render={({ field, fieldState }) => (
                           <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="zipCode" className="text-sm font-medium text-foreground/90">
+                            <FieldLabel
+                              htmlFor="zipCode"
+                              className="text-sm font-medium text-foreground/90"
+                            >
                               Zip Code *
                             </FieldLabel>
                             <FieldContent>
@@ -332,7 +411,11 @@ function Contact() {
                                 id="zipCode"
                                 type="text"
                                 placeholder="12345"
-                                className={`transition-all duration-200 ${fieldState.invalid ? "border-destructive ring-2 ring-destructive/20" : "focus:ring-2 focus:ring-primary/20 focus:border-primary"}`}
+                                className={`transition-all duration-200 ${
+                                  fieldState.invalid
+                                    ? "border-destructive ring-2 ring-destructive/20"
+                                    : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                                }`}
                               />
                               {fieldState.invalid && (
                                 <FieldError errors={[fieldState.error]} />
@@ -349,16 +432,21 @@ function Contact() {
               {/* Project Description Section */}
               <div className="space-y-6">
                 <div className="text-center mb-8">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Project Details</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    Project Details
+                  </h3>
                   <div className="w-16 h-0.5 bg-gradient-to-r from-primary/50 to-transparent mx-auto rounded-full"></div>
                 </div>
-                
+
                 <Controller
                   name="projectDescription"
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="projectDescription" className="text-sm font-medium text-foreground/90">
+                      <FieldLabel
+                        htmlFor="projectDescription"
+                        className="text-sm font-medium text-foreground/90"
+                      >
                         Project Description *
                       </FieldLabel>
                       <FieldContent>
@@ -367,8 +455,8 @@ function Contact() {
                           id="projectDescription"
                           placeholder="Please describe your ceramic tile project in detail. Include room dimensions, tile preferences, timeline, and any specific requirements..."
                           className={`min-h-32 transition-all duration-200 ${
-                            fieldState.invalid 
-                              ? "border-destructive ring-2 ring-destructive/20" 
+                            fieldState.invalid
+                              ? "border-destructive ring-2 ring-destructive/20"
                               : "focus:ring-2 focus:ring-primary/20 focus:border-primary"
                           }`}
                         />
@@ -396,8 +484,18 @@ function Contact() {
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                        />
                       </svg>
                       Get Free Estimate
                     </div>

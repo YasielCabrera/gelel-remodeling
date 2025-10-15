@@ -18,7 +18,7 @@ export interface FeatureFlags {
  * Set to `true` to enable a feature, `false` to disable it.
  */
 export const featureFlags: FeatureFlags = {
-  faq: false, // Set to false to disable FAQ section and related links
+  faq: true, // Set to false to disable FAQ section and related links
 };
 
 /**

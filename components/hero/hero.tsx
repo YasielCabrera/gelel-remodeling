@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star, Award, CheckCircle } from "lucide-react";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -38,17 +39,25 @@ function Hero() {
 
               {/* Description */}
               <p className="text-base text-white/90 lg:text-lg max-w-2xl leading-relaxed">
-                Professional flooring installation and remodeling services including ceramic tiles, porcelain tiles, natural stone, and laminate flooring. Expert craftsmanship, competitive pricing, and guaranteed quality workmanship that transforms your home with precision and care.
+                Professional flooring installation and remodeling services
+                including ceramic tiles, porcelain tiles, natural stone, and
+                laminate flooring. Expert craftsmanship, competitive pricing,
+                and guaranteed quality workmanship that transforms your home
+                with precision and care.
               </p>
             </div>
 
             {/* CTA Button */}
+
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 text-lg h-auto"
+              asChild
             >
-              Get Free Quote
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <Link href="/#free-estimate">
+                Get Free Quote
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
 
             {/* Trust indicators */}
