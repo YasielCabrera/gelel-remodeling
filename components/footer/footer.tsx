@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
+import { isFeatureEnabled } from "@/config";
 
 function Footer() {
+  const isFaqEnabled = isFeatureEnabled('faq');
+  
   const navigationLinks = [
     { href: "/", label: "Home" },
     { href: "#services", label: "Services" },
     { href: "#gallery", label: "Gallery" },
-    { href: "#faqs", label: "FAQs" },
+    ...(isFaqEnabled ? [{ href: "#faqs", label: "FAQs" }] : []),
     { href: "#free-estimate", label: "Get a free estimate" },
   ];
 

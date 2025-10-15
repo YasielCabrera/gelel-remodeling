@@ -5,9 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { isFeatureEnabled } from "@/config";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isFaqEnabled = isFeatureEnabled('faq');
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -58,9 +60,11 @@ function Navbar() {
               <Link href="/#gallery">
                 <Button variant="ghost">Gallery</Button>
               </Link>
-              <Link href="/#faqs">
-                <Button variant="ghost">FAQs</Button>
-              </Link>
+              {isFaqEnabled && (
+                <Link href="/#faqs">
+                  <Button variant="ghost">FAQs</Button>
+                </Link>
+              )}
               <Link href="/#free-estimate">
                 <Button variant="default">Get free estimate</Button>
               </Link>
@@ -140,14 +144,16 @@ function Navbar() {
                   Gallery
                 </Button>
               </Link>
-              <Link href="/#faqs" onClick={closeMobileMenu} className="block">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-left h-12"
-                >
-                  FAQs
-                </Button>
-              </Link>
+              {isFaqEnabled && (
+                <Link href="/#faqs" onClick={closeMobileMenu} className="block">
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start text-left h-12"
+                  >
+                    FAQs
+                  </Button>
+                </Link>
+              )}
               <Link
                 href="/#free-estimate"
                 onClick={closeMobileMenu}
