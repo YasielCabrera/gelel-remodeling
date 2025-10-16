@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Facebook, Instagram, MessageCircle } from "lucide-react";
+import { Facebook, Instagram, MessageCircle, MessageSquareMore } from "lucide-react";
 import { isFeatureEnabled } from "@/config";
 
 function Footer() {
-  const isFaqEnabled = isFeatureEnabled('faq');
-  
+  const isFaqEnabled = isFeatureEnabled("faq");
+
   const navigationLinks = [
     { href: "/", label: "Home" },
     { href: "/#services", label: "Services" },
@@ -15,9 +16,21 @@ function Footer() {
   ];
 
   const socialLinks = [
-    { href: "#", icon: Facebook, label: "Facebook" },
-    { href: "#", icon: Instagram, label: "Instagram" },
-    { href: "#", icon: MessageCircle, label: "WhatsApp" },
+    {
+      href: "https://www.instagram.com/gelelremodeling/",
+      icon: Instagram,
+      label: "Instagram",
+    },
+    {
+      href: "https://wa.me/+17864583366",
+      icon: MessageCircle,
+      label: "WhatsApp",
+    },
+    {
+      href: "sms:+17864583366?body=Hello, I'm interested in your services.",
+      icon: MessageSquareMore,
+      label: "SMS",
+    },
   ];
 
   const legalLinks = [
@@ -32,9 +45,21 @@ function Footer() {
         {/* Top Section - Desktop: Logo | Navigation | Social Icons */}
         <div className="flex flex-col items-center space-y-6 md:flex-row md:justify-between md:items-center md:space-y-0">
           {/* Logo */}
-          <div className="flex items-center">
-            <div className="w-8 h-8 bg-black rounded flex items-center justify-center">
-              <div className="w-4 h-4 bg-white transform rotate-45"></div>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Gelel Remodeling Logo"
+              width={32}
+              height={32}
+              className="size-8"
+            />
+            <div className="hidden lg:flex flex-col leading-tight">
+              <span className="text-xl font-semibold whitespace-nowrap">
+                Gelel Remodeling
+              </span>
+              <span className="text-sm font-light text-muted-foreground whitespace-nowrap -mt-1">
+                Flooring services
+              </span>
             </div>
           </div>
 
