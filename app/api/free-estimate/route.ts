@@ -99,7 +99,6 @@ export async function POST(request: NextRequest) {
               <ul style="color: #555; line-height: 1.6;">
                 <li>Our team will review your project details</li>
                 <li>We'll contact you within 24 hours to schedule a consultation</li>
-                <li>We'll provide a detailed estimate for your ceramic tile project</li>
                 <li>We'll answer any questions you may have</li>
               </ul>
             </div>
