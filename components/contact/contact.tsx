@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import * as z from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { contactFormSchema, type ContactFormData } from "@/types/contact";
 import {
   Field,
   FieldGroup,
@@ -15,51 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .min(2, "Name must be at least 2 characters")
-    .max(50, "Name must be less than 50 characters"),
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
-  phone: z
-    .string()
-    .min(1, "Phone number is required")
-    .regex(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number")
-    .transform((val) => val.replace(/[\s\-\(\)]/g, "")),
-  address: z
-    .string()
-    .min(1, "Address is required")
-    .min(5, "Please enter a complete address"),
-  address2: z.string().optional(),
-  city: z
-    .string()
-    .min(1, "City is required")
-    .min(2, "Please enter a valid city name"),
-  zipCode: z
-    .string()
-    .min(1, "Zip code is required")
-    .regex(
-      /^\d{5}(-\d{4})?$/,
-      "Please enter a valid US zip code (e.g., 12345 or 12345-6789)"
-    ),
-  projectDescription: z
-    .string()
-    .min(1, "Project description is required")
-    .min(
-      20,
-      "Please provide a more detailed description (at least 20 characters)"
-    )
-    .max(1000, "Description must be less than 1000 characters"),
-});
-
-type ContactFormData = z.infer<typeof contactFormSchema>;
-
 function Contact() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const router = useRouter();
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -75,70 +34,61 @@ function Contact() {
     },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      // Simulate API call - replace with actual form submission logic
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  const submitEstimateMutation = useMutation({
+    mutationFn: async (data: ContactFormData) => {
+      try {
+        const response = await fetch("/api/free-estimate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      console.log("Form submitted:", data);
-      setIsSubmitted(true);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            errorData.message || "Failed to submit estimate request"
+          );
+        }
+
+        return response.json();
+      } catch (error) {
+        // Handle network errors
+        if (error instanceof TypeError && error.message.includes("fetch")) {
+          throw new Error(
+            "Network error. Please check your connection and try again."
+          );
+        }
+        throw error;
+      }
+    },
+    onSuccess: () => {
       form.reset();
-    } catch (error) {
+      router.push("/estimate-success");
+    },
+    onError: (error) => {
       console.error("Error submitting form:", error);
+    },
+  });
+
+  const onSubmit = (data: ContactFormData) => {
+    // Clear any previous errors when submitting
+    if (submitEstimateMutation.isError) {
+      submitEstimateMutation.reset();
     }
+    submitEstimateMutation.mutate(data);
   };
 
-  if (isSubmitted) {
-    return (
-      <section className="py-20 bg-gradient-to-br from-background via-background to-muted/20 relative overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full blur-2xl"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="mb-8">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6">
-                <svg
-                  className="w-10 h-10 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                Thank You!
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary/50 mx-auto rounded-full mb-8"></div>
-            </div>
-
-            <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 shadow-xl">
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                We've received your request for a free estimate. Our team will
-                contact you within 24 hours to discuss your ceramic tile
-                project.
-              </p>
-              <Button
-                onClick={() => setIsSubmitted(false)}
-                className="px-8 py-3"
-                variant="outline"
-              >
-                Submit Another Request
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // Clear error state when user starts typing
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      if (submitEstimateMutation.isError) {
+        submitEstimateMutation.reset();
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form, submitEstimateMutation]);
 
   return (
     <section
@@ -182,6 +132,57 @@ function Contact() {
         {/* Form Section */}
         <div className="max-w-3xl mx-auto">
           <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8 md:p-12 shadow-2xl">
+            {/* Error Display */}
+            {submitEstimateMutation.isError && (
+              <div className="mb-8 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    <svg
+                      className="w-5 h-5 text-destructive mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium text-destructive mb-1">
+                      Submission Failed
+                    </h3>
+                    <p className="text-sm text-destructive/80">
+                      {submitEstimateMutation.error?.message ||
+                        "There was an error submitting your request. Please try again."}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => submitEstimateMutation.reset()}
+                    className="flex-shrink-0 text-destructive/60 hover:text-destructive transition-colors"
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* Two Column Layout for Desktop */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -447,13 +448,13 @@ function Contact() {
                         htmlFor="projectDescription"
                         className="text-sm font-medium text-foreground/90"
                       >
-                        Project Description *
+                        Project Description
                       </FieldLabel>
                       <FieldContent>
                         <Textarea
                           {...field}
                           id="projectDescription"
-                          placeholder="Please describe your ceramic tile project in detail. Include room dimensions, tile preferences, timeline, and any specific requirements..."
+                          placeholder="Describe your project (optional)"
                           className={`min-h-32 transition-all duration-200 ${
                             fieldState.invalid
                               ? "border-destructive ring-2 ring-destructive/20"
@@ -473,14 +474,35 @@ function Contact() {
               <div className="pt-8">
                 <Button
                   type="submit"
-                  className="w-full py-4 text-lg font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className={`w-full py-4 text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${
+                    submitEstimateMutation.isError
+                      ? "bg-gradient-to-r from-destructive to-destructive/90 hover:from-destructive/90 hover:to-destructive"
+                      : "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary"
+                  }`}
                   size="lg"
-                  disabled={form.formState.isSubmitting}
+                  disabled={submitEstimateMutation.isPending}
                 >
-                  {form.formState.isSubmitting ? (
+                  {submitEstimateMutation.isPending ? (
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                       Submitting...
+                    </div>
+                  ) : submitEstimateMutation.isError ? (
+                    <div className="flex items-center gap-2">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
+                      Try Again
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
