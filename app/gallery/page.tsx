@@ -17,7 +17,7 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-background ">
       {/* Header */}
-      <div className="bg-muted/50 py-12 pt-28">
+      <div className="bg-muted/50 py-12 pt-4 md:pt-28">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4 mb-8">
             <Button variant="ghost" size="sm" asChild>
