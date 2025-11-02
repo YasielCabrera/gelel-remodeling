@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 const GALLERY_IMAGES_COUNT = 16;
 
@@ -49,9 +50,11 @@ export default function GalleryPage() {
                 key={index}
                 className="relative overflow-hidden rounded-lg group cursor-pointer break-inside-avoid"
               >
-                <img
+                <Image
                   src={image.src}
                   alt={image.alt}
+                  width={300}
+                  height={250}
                   className="w-full h-auto object-cover transition-all duration-300 group-hover:scale-105 group-hover:opacity-90"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
