@@ -2,83 +2,15 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-const allGalleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Modern bathroom with ceramic tile installation",
-    height: "h-80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Kitchen floor with ceramic tiles",
-    height: "h-64",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f6c5?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Bathroom shower with subway tiles",
-    height: "h-96",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Living room floor renovation",
-    height: "h-72",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Master bathroom tile work",
-    height: "h-60",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f6c5?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Kitchen backsplash installation",
-    height: "h-84",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Bathroom floor with mosaic tiles",
-    height: "h-76",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Entryway ceramic tile installation",
-    height: "h-68",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f6c5?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Modern bathroom with large format tiles",
-    height: "h-88",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Guest bathroom renovation",
-    height: "h-72",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Laundry room tile installation",
-    height: "h-64",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f6c5?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Powder room with accent tiles",
-    height: "h-80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Basement floor renovation",
-    height: "h-76",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Outdoor patio tile work",
-    height: "h-84",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581578731548-c6a0c3f2f6c5?ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
-    alt: "Commercial bathroom installation",
-    height: "h-68",
-  },
-];
+const GALLERY_IMAGES_COUNT = 16;
+
+const allGalleryImages = Array.from(
+  { length: GALLERY_IMAGES_COUNT },
+  (_, index) => ({
+    src: `/gallery/${index + 1}.jpg`,
+    alt: `Gallery Image ${index + 1}`,
+  })
+);
 
 export default function GalleryPage() {
   return (
@@ -144,7 +76,7 @@ export default function GalleryPage() {
             asChild
             className="bg-primary hover:bg-primary/90 text-primary-foreground"
           >
-            <Link href="/#contact">Get Your Free Quote</Link>
+            <Link href="/#free-estimate">Get Your Free Quote</Link>
           </Button>
         </div>
       </div>
